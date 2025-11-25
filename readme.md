@@ -7,7 +7,7 @@ Aplicación Node.js básica desplegada automáticamente usando GitHub Actions, D
 - **Lenguaje**: JavaScript (ES Modules)
 - **CI/CD**: GitHub Actions
 - **Despliegue**: Railway
-- **Contenedor**: Docker
+- **Contenedor**: Docke
 - **Testing**: Jest
 
 ## 📋 Prerrequisitos
