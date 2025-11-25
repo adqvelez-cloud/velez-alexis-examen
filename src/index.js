@@ -102,7 +102,7 @@ app.get("/", (req, res) => {
 <body>
     <div class="container">
         <div class="icon">🚀</div>
-        <h1>¡Quinche Desplegado!</h1>
+        <h1>alexis nuevos cambios</h1>
         <p>Aplicación Node.js desplegada exitosamente usando Express, Docker y CI/CD</p>
 
         <div class="tech-stack">
