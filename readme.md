@@ -97,8 +97,8 @@ El workflow actual ejecuta automáticamente:
 
 Cada push genera automáticamente imágenes Docker disponibles en:
 ```
-ghcr.io/adqvelez-cloud/quinche:latest
-ghcr.io/adqvelez-cloud/quinche:1.0.5
+ghcr.io/adqvelez-cloud/velez-alexis-examen/quinche:latest
+ghcr.io/adqvelez-cloud/velez-alexis-examen/quinche:1.0.5
 ```
 
 **Para usar con Render:**
@@ -106,7 +106,7 @@ ghcr.io/adqvelez-cloud/quinche:1.0.5
 2. Selecciona **"Docker"** como runtime
 3. Configura:
    - **Registry**: `ghcr.io`
-   - **Image**: `ghcr.io/adqvelez-cloud/quinche:latest`
+   - **Image**: `ghcr.io/adqvelez-cloud/velez-alexis-examen/quinche:latest`
 4. Render se actualizará automáticamente cuando publiques nuevas versiones
 
 ## 📁 Estructura del Proyecto

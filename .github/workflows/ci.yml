@@ -56,7 +56,7 @@ jobs:
       # 8️⃣ Tag y Push al GHCR
       - name: Tag & Push Image to GHCR
         run: |
-          IMAGE="ghcr.io/adqvelez-cloud/quinche"
+          IMAGE="ghcr.io/adqvelez-cloud/velez-alexis-examen/quinche"
           docker tag quinche:1.0.5 $IMAGE:1.0.5
           docker tag quinche:1.0.5 $IMAGE:latest
 
@@ -107,7 +107,7 @@ jobs:
             echo "${{ env.GHCR_PAT }}" | docker login ghcr.io -u adqvelez-cloud --password-stdin
 
             # Descargar la última imagen
-            docker pull ghcr.io/adqvelez-cloud/quinche:latest
+            docker pull ghcr.io/adqvelez-cloud/velez-alexis-examen/quinche:latest
 
             # Eliminar stack anterior (si existe)
             docker stack rm quinche || true
