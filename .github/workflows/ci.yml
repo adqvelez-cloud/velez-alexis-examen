@@ -62,6 +62,18 @@ jobs:
 
            docker push $IMAGE:1.0.5
            docker push $IMAGE:latest
+      # 8.1️⃣ Verificar push (debug)
+      - name: Verify Docker Push
+        run: |
+          echo "🔍 Verificando imágenes locales:"
+          docker images | grep velez-alexis-examen
+    
+          echo "🔍 Verificando autenticación:"
+          docker logout ghcr.io
+          echo "${{ env.GHCR_PAT }}" | docker login ghcr.io -u adqvelez-cloud --password-stdin
+    
+          echo "🔍 Re-intentando push:"
+          docker push ghcr.io/adqvelez-cloud/velez-alexis-examen:latest
 
       # 9️⃣ Copiar stack.yml al VPS
       - name: Copiar stack.yml al VPS (SCP)
