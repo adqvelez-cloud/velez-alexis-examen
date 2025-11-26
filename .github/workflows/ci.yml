@@ -56,12 +56,12 @@ jobs:
       # 8️⃣ Tag y Push al GHCR
       - name: Tag & Push Image to GHCR
         run: |
-          IMAGE="ghcr.io/adqvelez-cloud/velez-alexis-examen/quinche"
-          docker tag quinche:1.0.5 $IMAGE:1.0.5
-          docker tag quinche:1.0.5 $IMAGE:latest
+           IMAGE="ghcr.io/adqvelez-cloud/velez-alexis-examen"
+           docker tag quinche:1.0.5 $IMAGE:1.0.5
+           docker tag quinche:1.0.5 $IMAGE:latest
 
-          docker push $IMAGE:1.0.5
-          docker push $IMAGE:latest
+           docker push $IMAGE:1.0.5
+           docker push $IMAGE:latest
 
       # 9️⃣ Copiar stack.yml al VPS
       - name: Copiar stack.yml al VPS (SCP)
@@ -107,7 +107,7 @@ jobs:
             echo "${{ env.GHCR_PAT }}" | docker login ghcr.io -u adqvelez-cloud --password-stdin
 
             # Descargar la última imagen
-            docker pull ghcr.io/adqvelez-cloud/velez-alexis-examen/quinche:latest
+            docker pull ghcr.io/adqvelez-cloud/velez-alexis-examen:latest
 
             # Eliminar stack anterior (si existe)
             docker stack rm quinche || true
