@@ -62,19 +62,43 @@ jobs:
 
            docker push $IMAGE:1.0.5
            docker push $IMAGE:latest
-      # 8.1️⃣ Verificar push (debug)
-      - name: Verify Docker Push
-        run: |
-          echo "🔍 Verificando imágenes locales:"
-          docker images | grep velez-alexis-examen
-    
-          echo "🔍 Verificando autenticación:"
-          docker logout ghcr.io
-          echo "${{ env.GHCR_PAT }}" | docker login ghcr.io -u adqvelez-cloud --password-stdin
-    
-          echo "🔍 Re-intentando push:"
-          docker push ghcr.io/adqvelez-cloud/velez-alexis-examen:latest
 
+      # 8.1️⃣ Hacer el paquete público y vincularlo al repositorio
+      - name: Make Package Public and Link to Repository
+        run: |
+          PACKAGE_NAME="velez-alexis-examen"
+          REPO_NAME="adqvelez-cloud/velez-alexis-examen"
+    
+          echo "🔧 Configurando visibilidad del paquete..."
+    
+          # Hacer el paquete público
+          curl -s -X PATCH \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/user/packages/container/${PACKAGE_NAME} \
+          -d '{"visibility":"public"}' || echo "⚠️ No se pudo cambiar visibilidad (puede que ya sea público)"
+    
+          # Vincular el paquete al repositorio
+          echo "🔗 Vinculando paquete al repositorio..."
+          curl -s -X PUT \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/orgs/adqvelez-cloud/packages/container/${PACKAGE_NAME}/versions/latest \
+          -d "{\"repository\":\"${REPO_NAME}\"}" || \
+          curl -s -X PUT \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/user/packages/container/${PACKAGE_NAME} \
+          -d "{\"repository\":\"${REPO_NAME}\"}" || echo "⚠️ No se pudo vincular (puede que ya esté vinculado)"
+    
+          echo "✅ Configuración completada"
+          echo "📦 Paquete disponible en: https://github.com/adqvelez-cloud/velez-alexis-examen/pkgs/container/velez-alexis-examen"
+
+
+      
       # 9️⃣ Copiar stack.yml al VPS
       - name: Copiar stack.yml al VPS (SCP)
         uses: appleboy/scp-action@v1
